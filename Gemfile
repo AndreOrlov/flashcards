@@ -43,3 +43,8 @@ group :test do
   gem "codeclimate-test-reporter", require: nil
 end
 
+group :development do
+  gem "spring-commands-rspec"
+end
+
+
