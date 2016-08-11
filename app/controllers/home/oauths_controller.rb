@@ -6,21 +6,21 @@ class Home::OauthsController < Home::BaseController
   end
 
   def callback
-      provider = auth_params[:provider]
-      @user = login_from(provider)
-      if !@user.nil?
-        redirect_to trainer_path, notice: (t 'log_in_is_successful_provider_notice',
-                                        provider: provider.titleize)
+    provider = auth_params[:provider]
+    @user = login_from(provider)
+    if !@user.nil?
+      redirect_to trainer_path, notice: (t 'log_in_is_successful_provider_notice',
+                                           provider: provider.titleize)
     else
       begin
         @user = create_from(provider)
         reset_session
         auto_login(@user)
         redirect_to trainer_path, notice: (t 'log_in_is_successful_provider_notice',
-                                          provider: provider.titleize)
+                                             provider: provider.titleize)
       rescue
         redirect_to user_sessions_path, alert: (t 'log_out_failed_provider_alert',
-                                         provider: provider.titleize)
+                                                  provider: provider.titleize)
       end
     end
   end
