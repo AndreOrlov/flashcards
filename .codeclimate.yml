@@ -41,6 +41,6 @@ exclude_paths:
 - spec/
 - test/
 - vendor/
-# - app/assets/stylesheets/bootstrap.css
+- app/assets/stylesheets/bootstrap.css
 
 
