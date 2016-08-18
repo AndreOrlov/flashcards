@@ -1,10 +1,12 @@
 language: ruby
-rvm: 2.1.5
+rvm: 2.2.2
 env: RAILS_ENV=test
 script:
   - bundle exec rspec
 addons:
   postgresql: "9.4"
+  code_climate:
+          repo_token: eae5888c23f0f22e6c8f37e06e0148644358b209c429d92b8343c7021f108397
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres

@@ -8,11 +8,12 @@ class Home::UserSessionsController < Home::BaseController
   end
 
   def create
-    if @user = login(params[:email], params[:password])
-      redirect_back_or_to root_path, notice: t(:log_in_is_successful_notice)
-    else
+    @user = login(params[:email], params[:password])
+    if @user.nil?
       flash.now[:alert] = t(:not_logged_in_alert)
       render action: 'new'
+    else
+      redirect_back_or_to root_path, notice: t(:log_in_is_successful_notice)
     end
   end
 end

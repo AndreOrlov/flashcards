@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
-ruby '2.1.4'
+ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '~> 5.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
@@ -31,9 +31,20 @@ gem 'http_accept_language'
 gem 'routing-filter'
 gem 'rollbar'
 gem 'newrelic_rpm'
+gem 'responders', '~> 2.0'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_girl_rails'
 end
+
+group :test do
+  gem "codeclimate-test-reporter", require: nil
+end
+
+group :development do
+  gem "spring-commands-rspec"
+end
+
+
