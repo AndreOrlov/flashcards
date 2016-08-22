@@ -37,6 +37,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_girl_rails'
+  # For deploing
+  gem 'chef'
+  gem 'librarian-chef'
 end
 
 group :test do
