@@ -20,3 +20,5 @@ cookbooks/*
 config/database.yml
 config/application.yml
 public/uploads/
+
+
