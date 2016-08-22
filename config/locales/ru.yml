@@ -45,3 +45,7 @@ ru:
         confirmation: 'Значения не совпадают.'
         taken: 'Не уникальное значение.'
         invalid: 'Не верный формат.'
+
+  time:
+    formats:
+      long: "%d-%m-%Y %H:%M:%S"

@@ -18,6 +18,7 @@ gem 'rake'
 gem 'simple_form'
 gem 'nokogiri'
 gem 'seedbank'
+# Authorizing gem sorcery
 gem 'sorcery'
 gem 'faraday'
 gem 'figaro'
@@ -32,6 +33,10 @@ gem 'routing-filter'
 gem 'rollbar'
 gem 'newrelic_rpm'
 gem 'responders', '~> 2.0'
+gem 'activeadmin', github: 'activeadmin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'pundit'
+gem 'rolify'
 
 group :development, :test do
   gem 'rspec-rails'
