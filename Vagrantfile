@@ -1,59 +1,59 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-$script_test = <<SCRIPT
-echo Start script
-SCRIPT
-
-$install_rvm = <<SCRIPT
-# Example from http://tecadmin.net/install-ruby-2-2-on-centos-rhel/#
-#  Install Required Packages
-sudo yum install -y gcc-c++ patch readline readline-devel zlib zlib-devel
-sudo yum install -y libyaml-devel libffi-devel openssl-devel make
-sudo yum install -y bzip2 autoconf automake libtool bison iconv-devel sqlite-devel
-
-curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-curl -L get.rvm.io | bash -s stable
-
-source /etc/profile.d/rvm.sh
-rvm reload
-rvm requirements run
-
-rvm install 2.2.2
-rvm use 2.2.2 --default
-ruby --version
-gem install bundler
-
-cd /vagrant
-bundle update
-SCRIPT
-
-$install_git = <<SCRIPT
-sudo yum install -y git
-git --version
-SCRIPT
-
-$install_postgresql = <<SCRIPT
-sudo yum install -y postgresql-server postgresql-contrib postgresql-devel
-sudo postgresql-setup initdb
-sudo systemctl start postgresql
-sudo systemctl enable postgresql
-SCRIPT
-
-
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
-  # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "centos6_7"
-  config.vm.synced_folder '/home/andre/flashcards', '/vagrant'
+  config.vm.box_url = 'https://dl.dropboxusercontent.com/u/51478659/vagrant/morungos-centos67.box'
 
-  config.vm.provision "shell", inline: $script_test
-  config.vm.provision "shell", inline: $install_rvm
-  config.vm.provision "shell", inline: $install_postgresql
-  config.vm.provision "shell", inline: $install_git
+  # config.vm.network 'private_network', ip: "11.11.11.11"
+  # config.vm.network :public_network
+  config.vm.network :forwarded_port, quest_ip: '0.0.0.0', guest: 3000, host_ip: '127.0.0.1', host: 3001
 
+  config.omnibus.chef_version = :latest
+  config.vm.provision 'chef_solo' do |chef|
 
+    chef.add_recipe 'yum'
+    chef.add_recipe 'build-essential'
+    chef.add_recipe 'rvm::vagrant'
+    chef.add_recipe 'rvm::system'
+    chef.add_recipe 'rvm::gem_package'
+    # chef.add_recipe 'postgresql::server'
+    chef.add_recipe 'nodejs'
+
+    chef.add_recipe "git"
+
+    chef.json = {
+        postgresql: {
+            password: {
+                postgres: '1'
+            }#,
+            # version: '9.4',
+            # client: {
+            #     packages: 'postgresql-devel'
+            # },
+            # server: {
+            #     packages: 'postgresql-server'
+            # },
+            # contrib: {
+            #     packages: 'postgresql-contrib'
+            # }
+        }
+    }
+
+=begin
+     chef.json = {
+        'rvm' => {
+            'default_ruby' => "ruby-2.2.2",
+            # 'user_default_ruby' => "ruby-2.2.2"
+            # 'rubies' => ['ruby-2.2.2', 'ruby-2.2.4']
+        }
+    }
+=end
+    # node['rvm']['user_default_ruby'] = "ruby-2.2.2"
+    # node['rvm']['rubies'] = ['2.2.2', '2.2.4']
+
+  end
 end
