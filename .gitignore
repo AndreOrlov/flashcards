@@ -16,6 +16,7 @@
 /tmp
 .idea/*
 .vagrant/*
+cookbooks/*
 config/database.yml
 config/application.yml
 public/uploads/
