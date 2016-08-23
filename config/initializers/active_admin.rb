@@ -10,6 +10,9 @@ ActiveAdmin.setup do |config|
   config.comments = false
   # TODO Восстановть прежний css. При установке ActiveAdmin он затер родной стиль и показывает свой по умолчанию
 
+  # Access to admin page only admin user
+  config.authentication_method = :authenticate_admin_user!
+
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
@@ -273,4 +276,10 @@ ActiveAdmin.setup do |config|
   # of those filters by default here.
   #
   # config.include_default_association_filters = true
+end
+
+# restrict access to admin module for non-admin users
+def authenticate_admin_user!
+  redirect_to root_url, flash: {alert: t(:user_redirected)} unless current_user.has_role? :admin
+  # raise SecurityError unless current_user.try(:admin?)
 end
