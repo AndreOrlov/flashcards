@@ -8,7 +8,6 @@ ActiveAdmin.setup do |config|
 
   # Don't shom item comments in top menu TODO Delete model and table Comments from project
   config.comments = false
-  # TODO Восстановть прежний css. При установке ActiveAdmin он затер родной стиль и показывает свой по умолчанию
 
   # Access to admin page only admin user
   config.authentication_method = :authenticate_admin_user!
@@ -280,6 +279,8 @@ end
 
 # restrict access to admin module for non-admin users
 def authenticate_admin_user!
-  redirect_to root_url, flash: {alert: t(:user_redirected)} unless current_user.has_role? :admin
+  flag = if current_user.nil? then false else current_user.has_role? :admin end
+  #p current_user.has_role? :admin
+  redirect_to root_url, flash: {alert: t(:user_redirected)} unless flag
   # raise SecurityError unless current_user.try(:admin?)
 end
