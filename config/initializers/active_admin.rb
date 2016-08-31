@@ -6,12 +6,6 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "Flashcards"
 
-  # Don't shom item comments in top menu TODO Delete model and table Comments from project
-  config.comments = false
-
-  # Access to admin page only admin user
-  config.authentication_method = :authenticate_admin_user!
-
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
@@ -60,7 +54,7 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # within the application controller.
-  # config.authentication_method = :authenticate_admin_user!
+  config.authentication_method = :authenticate_admin_user!
 
   # == User Authorization
   #
@@ -70,10 +64,13 @@ ActiveAdmin.setup do |config|
   # CanCanAdapter or make your own. Please refer to documentation.
   # config.authorization_adapter = ActiveAdmin::CanCanAdapter
 
+  # PunditAdapter
+  config.authorization_adapter = ActiveAdmin::PunditAdapter
+
   # In case you prefer Pundit over other solutions you can here pass
   # the name of default policy class. This policy will be used in every
   # case when Pundit is unable to find suitable policy.
-  # config.pundit_default_policy = "MyDefaultPunditPolicy"
+  config.pundit_default_policy = "ApplicationPolicy" #"Dashboard"
 
   # You can customize your CanCan Ability class name here.
   # config.cancan_ability_class = "Ability"
@@ -83,7 +80,7 @@ ActiveAdmin.setup do |config|
   # because, by default, user gets redirected to Dashboard. If user
   # doesn't have access to Dashboard, he'll end up in a redirect loop.
   # Method provided here should be defined in application_controller.rb.
-  # config.on_unauthorized_access = :access_denied
+  config.on_unauthorized_access = :user_not_authorized
 
   # == Current User
   #
@@ -124,8 +121,8 @@ ActiveAdmin.setup do |config|
   #
   # This allows your users to comment on any resource registered with Active Admin.
   #
-  # You can completely disable comments:
-  # config.comments = false
+  # You can completely disable comments: TODO Delete model and table Comments from project
+  config.comments = false
   #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'
@@ -280,7 +277,12 @@ end
 # restrict access to admin module for non-admin users
 def authenticate_admin_user!
   flag = if current_user.nil? then false else current_user.has_role? :admin end
-  #p current_user.has_role? :admin
-  redirect_to root_url, flash: {alert: t(:user_redirected)} unless flag
-  # raise SecurityError unless current_user.try(:admin?)
+  # redirect_to root_url, flash: {alert: t(:user_redirected)} unless flag
+  # raise SecurityError unless flag
 end
+
+# def user_not_authorized(exception)
+#   sign_out # or user will end up in a redirection loop
+#   flash[:error] = "Access has been denied because ..."
+#   redirect_to new_user_session_path
+# end
