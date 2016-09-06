@@ -22,7 +22,7 @@
 # Create admin user
 admin = 'admin@test.com'
 user = User.find_by(email: admin)
-if user.nil?
+unless user
   user = User.create(email: admin, password: '12345', password_confirmation: '12345',
                     locale: 'ru')
 end
