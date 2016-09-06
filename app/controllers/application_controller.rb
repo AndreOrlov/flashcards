@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
   def default_url_options(options = {})
     { locale: I18n.locale }.merge options
   end
+
+  def user_not_authorized(exception)
+    redirect_to login_path, alert: exception.message
+  end
 end

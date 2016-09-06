@@ -4,7 +4,7 @@ include LoginHelper
 
 describe 'viziting Active Admin page' do
   let(:user) { create(:user) }
-  let(:admin) {create(:user_admin)}
+  let(:active_admin) {create(:user_admin)}
 
   before do
     visit root_path

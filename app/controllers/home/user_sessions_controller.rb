@@ -12,7 +12,7 @@ class Home::UserSessionsController < Home::BaseController
     if @user.nil?
       flash.now[:alert] = t(:not_logged_in_alert)
       render action: 'new'
-    elsif @user.has_role? :admin
+    elsif @user.has_role? :active_admin
       redirect_to admin_root_path, notice: t(:log_in_is_successful_notice)
     else
       redirect_back_or_to root_path, notice: t(:log_in_is_successful_notice)

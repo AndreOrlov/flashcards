@@ -45,3 +45,7 @@ en:
           too_short: 'Short value.'
           confirmation: 'Values do not match.'
           taken: 'Not a unique value.'
+
+  active_admin:
+    access_denied:
+      message: "You are not authorized like admin."

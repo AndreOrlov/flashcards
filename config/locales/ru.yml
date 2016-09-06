@@ -50,3 +50,7 @@ ru:
   time:
     formats:
       long: "%d-%m-%Y %H:%M:%S"
+
+  active_admin:
+    access_denied:
+      message: "Вы не авторизованы, как администратор."

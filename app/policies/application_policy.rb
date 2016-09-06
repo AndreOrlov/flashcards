@@ -11,8 +11,7 @@ class ApplicationPolicy
   end
 
   def show?
-    true
-    # scope.where(:id => record.id).exists?
+    scope.where(:id => record.id).exists?
   end
 
   def create?
