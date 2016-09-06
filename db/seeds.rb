@@ -26,5 +26,5 @@ unless user
   user = User.create(email: admin, password: '12345', password_confirmation: '12345',
                     locale: 'ru')
 end
-user.add_role :active_admin
+user.add_role :admin
 user.save
