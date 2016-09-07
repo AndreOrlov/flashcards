@@ -26,14 +26,6 @@ engines:
     enabled: true
   rubocop:
     enabled: true
-  bundler-audit:
-    enabled: true
-    exclude_fingerprints:
-    # Disable check Insecure Source URI
-    # git://github.com/activeadmin/activeadmin.git
-    # git://github.com/activeadmin/inherited_resources.git
-    - f0e0b9a8e41ce608d7a29ae30579ac2b
-    - b9aafc710688df6b87a5dffd891cd0b3
 ratings:
   paths:
   - Gemfile.lock
