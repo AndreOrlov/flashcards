@@ -36,6 +36,7 @@ ru:
   log_out_is_successful_notice: 'Выход выполнен успешно.'
   log_out_failed_provider_alert: "Вход из аккаунта %{provider.titleize} не выполнен ."
   please_log_in: 'Пожалуйста авторизуйтесь.'
+  user_redirected: 'Вы были перенаправлены.'
 
   activerecord:
     errors:
@@ -45,3 +46,11 @@ ru:
         confirmation: 'Значения не совпадают.'
         taken: 'Не уникальное значение.'
         invalid: 'Не верный формат.'
+
+  time:
+    formats:
+      long: "%d-%m-%Y %H:%M:%S"
+
+  active_admin:
+    access_denied:
+      message: "Вы не авторизованы, как администратор."
