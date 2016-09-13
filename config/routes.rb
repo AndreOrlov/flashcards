@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   ActiveAdmin.routes(self)
   filter :locale
 
@@ -33,5 +34,7 @@ Rails.application.routes.draw do
 
     get 'profile/:id/edit' => 'profile#edit', as: :edit_profile
     put 'profile/:id' => 'profile#update', as: :profile
+
+    post 'flickr' => 'flickr#photos', as: :flickr
   end
 end

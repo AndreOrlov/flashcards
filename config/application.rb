@@ -25,5 +25,6 @@ module Flashcards
     config.i18n.available_locales = [:ru, :en]
     # comment bellow. Depricated in Rails 5.1
     # config.active_record.raise_in_transactional_callbacks = true
+    config.assets.paths << "#{Rails}/vendor/assets/fonts"
   end
 end

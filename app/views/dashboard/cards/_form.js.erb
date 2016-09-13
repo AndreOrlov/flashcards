@@ -1,0 +1,51 @@
+var gFlickr = false;
+show_flicker = function(event_object){
+  $('#flicker').toggle($(event_object).checked);
+  if(gFlickr)
+    $('#flickr-cont').toggle($(event_object).checked);
+  //TODO delete below
+  //console.log('File is ' + $('form input[type=file]').val());
+  //console.log('File is ' + $('form input[type=file]').val(''));
+};
+
+set_image_remote = function(event_object){
+  $('#image_remote').val($(event_object).attr('src'));
+  $('form input[type=file]').val('');
+};
+
+
+$( "#search_flickr" ).click(function() {
+  //console.log( "Handler for #search_flickr.click() called." );
+  text =$("#srch-term").val();
+  if(text!='') {
+    console.log('Search text is ' + text);
+    //console.log('Method is ' + $(this).data('method'));
+    //console.log('URL is ' + $(this).data("url"));
+    $.ajax({
+      type: $(this).data('method'),
+      url: $(this).data('url'),
+      data: {flickr: {search_tag: text}},
+      success: function (data) {filling_pics(data.count, data.photos)}
+    });
+
+  }
+});
+
+filling_pics = function(cnt, arr){
+  if($('a[name=flickr-pic]').length != arr.length){
+    console.log('WARNiNG. Count links name=flickr-pics != data.count element recieve from ajax.')
+  }
+  arr.forEach(function(item, i, arr) {
+    console.log(item.url);
+  });
+
+  var pics = arr;
+  $('a[name=flickr-pic]').each(function(i, item){
+    $('img', item).attr('src', pics[i].url);
+    $('img', item).attr('alt', pics[i].title);
+  });
+
+  $('#flickr-cont').show();
+  gFlickr = true;
+
+};

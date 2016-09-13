@@ -37,6 +37,7 @@ ru:
   log_out_failed_provider_alert: "Вход из аккаунта %{provider.titleize} не выполнен ."
   please_log_in: 'Пожалуйста авторизуйтесь.'
   user_redirected: 'Вы были перенаправлены.'
+  find_flickr: 'Искать на Flickr'
 
   activerecord:
     errors:
