@@ -57,6 +57,8 @@ class Dashboard::CardsController < Dashboard::BaseController
   end
 
   def check_remote_pics(card)
+    if params.require(:card)[:image].nil?
       card.remote_image_url = params[:image_remote] unless params[:image_remote] == ''
+    end
   end
 end

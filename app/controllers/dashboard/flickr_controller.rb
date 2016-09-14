@@ -23,7 +23,6 @@ class Dashboard::FlickrController < ApplicationController
 
 
     respond_to do |format|
-      # TODO
       if params[:search_tag].nil?
         # format.json {render json: {Error: 'Error parameters query'}}
         format.json { head :bad_request}

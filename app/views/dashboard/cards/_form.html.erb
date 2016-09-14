@@ -10,15 +10,18 @@
                   input_html: {class: 'form-control', required: true} %>
     </div>
 
-    <div class="form-group">
-      <%= f.input :image, as: :file, label: 'Изображение' %>
+    <div class="form-group" id="choice-file" data-id-clearing="file_image">
+      <%= f.input :image, as: :file, label: 'Изображение', input_html: {id: 'file_image'} %>
       <%= f.input :image_cache, as: :hidden %>
     </div>
 
-    <!-- TODO INSERT FLICKER PICS-->
-    <div class="form-group">
+    <!-- INSERT FLICKER PICS-->
+    <div class="form-group" id="link-choice-flickr" style="display: none">
       <%= label_tag :image_remote, 'Изображение Flickr' %>
       <%= text_field_tag :image_remote, nil %>
+    </div>
+    <div class="form-group"  id="current_flickr" style="display:none" >
+      <%= image_tag "125x125.jpg", class: "img-responsive"%>
     </div>
     <div class="form-group">
       <%= check_box_tag :find_flickr, 1, false, onclick: "show_flicker(this)" %>
@@ -27,7 +30,7 @@
       <!--<a href="/posts/2" class="delete_post" data-confirm="Are you sure?" data-method="delete" data-remote="true" rel="nofollow">Destroy</a>-->
     </div>
     <div class="form-group" id="flicker" style="display: none">
-        <div class="input-group add-on">
+        <div class="input-group add-on col-xs-6">
           <input class="form-control" placeholder="wild, city, work" name="srch-term" id="srch-term" type="text">
           <div class="input-group-btn">
             <!-- <label class="btn btn-default" type="submit2"><i class="glyphicon glyphicon-search"></i></label> -->
@@ -85,7 +88,7 @@
         </div>
     <% end %>
 
-    <%= f.button :submit, 'Сохранить', class: 'btn btn-default' %>
+    <%= f.button :submit, 'Сохранить', class: 'btn btn-default', id: 'btn-save' %>
 <% end %>
 
 <%= javascript_tag render(:partial => 'dashboard/cards/form', :formats => [:js] ) %>
