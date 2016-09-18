@@ -30,10 +30,10 @@ class Dashboard::FlickrController < ApplicationController
       embed_photo['flickr']=FlickRaw.url(info) rescue FlickRaw.url_o(info) rescue FlickRaw.url_b(info)
       title = info.title
       square_url = FlickRaw.url_s(info)
-      large_square_url = FlickRaw.url_q(info)
-      taken = info.dates.taken
-      views = info.views
-      tags = info.tags.map {|t| t.raw}
+      # large_square_url = FlickRaw.url_q(info)
+      # taken = info.dates.taken
+      # views = info.views
+      # tags = info.tags.map {|t| t.raw}
       pics.push url: square_url, title: title
     end
     pics
