@@ -3,8 +3,8 @@ require 'support/helpers/login_helper.rb'
 include LoginHelper
 
 describe 'New card' do
-  let(:user){create(:user)}
-  let!(:block){create(:block, user: user)}
+  let(:user) { create(:user) }
+  let!(:block) { create(:block, user: user) }
 
   before  do
     visit root_path
@@ -34,7 +34,7 @@ describe 'New card' do
     expect(page).to have_content 'Create new card with local image.'
   end
 
-  it 'with remote image', :js => true do
+  it 'with remote image', js: true do
     VCR.use_cassette('flickr_post') do
       find(:css, '#find_flickr').click # set(true)
       fill_in 'search-term', with: 'test'

@@ -8,7 +8,7 @@ class Dashboard::FlickrController < ApplicationController
         # format.json {render json: {Error: 'Error parameters query'}}
         format.json { head :bad_request}
       else
-        pics = get_pics
+        pics = flickr_pics
         format.json {render json: {count: pics.size, photos: pics}}
       end
     end
@@ -20,14 +20,14 @@ class Dashboard::FlickrController < ApplicationController
     params.require(:flickr).permit(:search_tag)
   end
 
-  def get_pics
+  def flickr_pics
     params = flickr_params
     photos = flickr.photos.search tags: params[:search_tag], per_page: 10
     pics = []
     photos.each do |photo|
       info = flickr.photos.getInfo(photo_id: photo.id)
-      embed_photo={}
-      embed_photo['flickr']=FlickRaw.url(info) rescue FlickRaw.url_o(info) rescue FlickRaw.url_b(info)
+      embed_photo = {}
+      embed_photo['flickr'] = FlickRaw.url(info) rescue FlickRaw.url_o(info) rescue FlickRaw.url_b(info)
       title = info.title
       square_url = FlickRaw.url_s(info)
       # large_square_url = FlickRaw.url_q(info)
@@ -46,5 +46,4 @@ class Dashboard::FlickrController < ApplicationController
     flickr.access_token = FLICKR_CONFIG['access_token']
     flickr.access_secret = FLICKR_CONFIG['access_secret']
   end
-
 end
