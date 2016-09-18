@@ -3,7 +3,6 @@ require 'support/helpers/login_helper.rb'
 include LoginHelper
 
 describe 'New card' do
-
   let(:user){create(:user)}
   let!(:block){create(:block, user: user)}
 
@@ -46,8 +45,5 @@ describe 'New card' do
       click_button 'Сохранить'
       expect(page).to have_content 'Create new card with remote image.'
     end
-
   end
-
 end
-

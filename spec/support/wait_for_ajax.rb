@@ -9,7 +9,6 @@
 #
 # This methods will wait until Capybara.default_wait_time for the ajax request
 # to finish before continue the normal tests flow.
-#
 
 require 'timeout'
 
@@ -33,7 +32,7 @@ module WaitForAjax
   end
 
   def wait_for_ajax(&block)
-    block.call if block
+    yield if block
 
     Timeout.timeout(Capybara.default_max_wait_time) do
       loop do
@@ -47,4 +46,3 @@ module WaitForAjax
     page.evaluate_script('jQuery.active').zero?
   end
 end
-
