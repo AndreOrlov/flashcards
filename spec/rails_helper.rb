@@ -44,7 +44,7 @@ RSpec.configure do |config|
 
   VCR.configure do |c|
     c.cassette_library_dir = File.join(config.fixture_path, 'vcr_cassettes') #указываем директорию где у нас будут лежать файлы с цепочками запросов
-    c.ignore_hosts '127.0.0.1', 'localhost'
+    c.ignore_hosts '127.0.0.1', 'localhost', 'codeclimate.com'
     c.hook_into :webmock
   end
 
