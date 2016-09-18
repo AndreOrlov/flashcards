@@ -8,6 +8,8 @@ addons:
   code_climate:
           repo_token: 2dc3cb7388db3292e5210b36df6edbd7316bec690e0ee3c8f3b79fca5f90a1f9
 before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
   - bundle exec rake db:migrate
