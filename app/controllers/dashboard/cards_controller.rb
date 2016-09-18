@@ -22,11 +22,12 @@ class Dashboard::CardsController < Dashboard::BaseController
     check_remote_pics(@card) if @card.save
 
     if @card.save
-      redirect_to cards_path
+      redirect_to cards_path, notice: which_image
     else
-      respond_with @card
+      respond_with @card, alert: "Doesn't create new card."
     end
   end
+
 
   def update
     # test 4xtrot
@@ -53,12 +54,24 @@ class Dashboard::CardsController < Dashboard::BaseController
 
   def card_params
     params.require(:card).permit(:original_text, :translated_text, :review_date,
-                                 :image, :image_cache, :image_remote, :remove_image, :block_id)
+    :image, :image_cache, :image_remote, :remove_image, :block_id)
   end
 
   def check_remote_pics(card)
     if params.require(:card)[:image].nil?
       card.remote_image_url = params[:image_remote] unless params[:image_remote] == ''
+    end
+  end
+
+  def which_image
+    if (params.require(:card)[:image].nil? && params[:image_remote] == '')
+      'Create new card wo image.'
+    elsif (!params.require(:card)[:image].nil?)
+      'Create new card with local image.'
+    elsif (params[:image_remote] != '')
+      'Create new card with remote image.'
+    else
+      'Create new card with error image.'
     end
   end
 end

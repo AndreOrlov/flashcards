@@ -49,7 +49,11 @@ group :development, :test do
 end
 
 group :test do
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'webmock'
+  gem 'vcr'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 group :development do

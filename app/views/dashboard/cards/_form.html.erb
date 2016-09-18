@@ -24,14 +24,14 @@
       <%= image_tag "125x125.jpg", class: "img-responsive"%>
     </div>
     <div class="form-group">
-      <%= check_box_tag :find_flickr, 1, false, onclick: "show_flicker(this)" %>
+      <%= check_box_tag :find_flickr, 1, false, onclick: "show_flicker(this)", autocomplete: 'off' %>
       <%= label_tag :find_flickr, t(:find_flickr)%>
       <!-- <%=link_to t(:find_flickr), '#' %> -->
       <!--<a href="/posts/2" class="delete_post" data-confirm="Are you sure?" data-method="delete" data-remote="true" rel="nofollow">Destroy</a>-->
     </div>
     <div class="form-group" id="flicker" style="display: none">
         <div class="input-group add-on col-xs-6">
-          <input class="form-control" placeholder="wild, city, work" name="srch-term" id="srch-term" type="text">
+          <input class="form-control" placeholder="wild, city, work" name="srch-term" id="search-term" type="text">
           <div class="input-group-btn">
             <!-- <label class="btn btn-default" type="submit2"><i class="glyphicon glyphicon-search"></i></label> -->
             <%=
@@ -46,19 +46,19 @@
     <div class='form-group' id='flickr-cont' style="display: none">
       <div class="container">
         <div class="row" >
-          <% 5.times do%>
+          <% 5.times do |i| %>
           <div class="col-xs-2" >
             <a class="thumbnail" name="flickr-pic">
-              <img src="125x125.jpg" alt="125x125" onclick="set_image_remote(this)">
+              <img src="125x125.jpg" alt="125x125" id=<%= "remote-pic-#{i+1}" %> onclick="set_image_remote(this)">
             </a>
           </div>
           <% end %>
         </div>
         <div class="row">
-          <% 5.times do%>
+          <% 5.times do |i| %>
               <div class="col-xs-2" >
                 <a class="thumbnail" name="flickr-pic">
-                  <img src="125x125.jpg" alt="125x125" onclick="set_image_remote(this)">
+                  <img src="125x125.jpg" alt="125x125" id=<%= "remote-pic-#{i+6}" %> onclick="set_image_remote(this)">
                 </a>
               </div>
           <% end %>

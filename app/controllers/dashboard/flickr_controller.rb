@@ -3,9 +3,25 @@ class Dashboard::FlickrController < ApplicationController
   before_action :set_flickr, only: [:photos]
 
   def photos
-    params = flickr_params
-    # p params[:search_tag]
+    respond_to do |format|
+      if flickr_params[:search_tag].nil?
+        # format.json {render json: {Error: 'Error parameters query'}}
+        format.json { head :bad_request}
+      else
+        pics = get_pics
+        format.json {render json: {count: pics.size, photos: pics}}
+      end
+    end
+  end
 
+  private
+
+  def flickr_params
+    params.require(:flickr).permit(:search_tag)
+  end
+
+  def get_pics
+    params = flickr_params
     photos = flickr.photos.search tags: params[:search_tag], per_page: 10
     pics = []
     photos.each do |photo|
@@ -20,22 +36,7 @@ class Dashboard::FlickrController < ApplicationController
       tags = info.tags.map {|t| t.raw}
       pics.push url: square_url, title: title
     end
-
-
-    respond_to do |format|
-      if params[:search_tag].nil?
-        # format.json {render json: {Error: 'Error parameters query'}}
-        format.json { head :bad_request}
-      else
-        format.json {render json: {count: pics.size, photos: pics}}
-      end
-    end
-  end
-
-  private
-
-  def flickr_params
-    params.require(:flickr).permit(:search_tag)
+    pics
   end
 
   def set_flickr

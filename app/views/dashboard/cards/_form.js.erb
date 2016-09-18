@@ -1,3 +1,10 @@
+var ready = function() {
+  $('#image_remote').val('');
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+
 var gFlickr = false;
 var show_flicker = function(event_object){
   var f = $(event_object).prop('checked');
@@ -36,7 +43,7 @@ var show_element = function(object){
 
 $( "#search_flickr" ).click(function() {
   //console.log( "Handler for #search_flickr.click() called." );
-  var text =$("#srch-term").val();
+  var text =$("#search-term").val();
   if(text!='') {
     console.log('Search text is ' + text);
     //console.log('Method is ' + $(this).data('method'));
