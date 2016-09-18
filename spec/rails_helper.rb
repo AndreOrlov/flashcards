@@ -4,6 +4,7 @@ require 'spec_helper'
 require 'support/database_cleaner.rb'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+require 'capybara/poltergeist'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -38,6 +39,8 @@ RSpec.configure do |config|
 
   Capybara.configure do |config|
     config.raise_server_errors  = false
+    # To show firefox browser comment string below
+    config.javascript_driver = :poltergeist
   end
 
   config.include WaitForAjax
