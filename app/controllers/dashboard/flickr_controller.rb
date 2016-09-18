@@ -5,11 +5,11 @@ class Dashboard::FlickrController < ApplicationController
   def photos
     respond_to do |format|
       if flickr_params[:search_tag].nil?
-        # format.json {render json: {Error: 'Error parameters query'}}
-        format.json { head :bad_request}
+        # format.json { render json: { Error: 'Error parameters query' } }
+        format.json { head :bad_request }
       else
         pics = flickr_pics
-        format.json {render json: {count: pics.size, photos: pics}}
+        format.json { render json: { count: pics.size, photos: pics } }
       end
     end
   end

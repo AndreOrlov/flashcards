@@ -64,11 +64,11 @@ class Dashboard::CardsController < Dashboard::BaseController
   end
 
   def which_image
-    if (params.require(:card)[:image].nil? && params[:image_remote] == '')
+    if params.require(:card)[:image].nil? && params[:image_remote] == ''
       'Create new card wo image.'
-    elsif (!params.require(:card)[:image].nil?)
+    elsif !params.require(:card)[:image].nil?
       'Create new card with local image.'
-    elsif (params[:image_remote] != '')
+    elsif params[:image_remote] != ''
       'Create new card with remote image.'
     else
       'Create new card with error image.'
