@@ -28,7 +28,6 @@ class Dashboard::CardsController < Dashboard::BaseController
     end
   end
 
-
   def update
     # test 4xtrot
     check_remote_pics(@card)
@@ -54,7 +53,7 @@ class Dashboard::CardsController < Dashboard::BaseController
 
   def card_params
     params.require(:card).permit(:original_text, :translated_text, :review_date,
-    :image, :image_cache, :image_remote, :remove_image, :block_id)
+                                 :image, :image_cache, :image_remote, :remove_image, :block_id)
   end
 
   def check_remote_pics(card)
