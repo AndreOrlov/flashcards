@@ -1,9 +1,7 @@
 == README
 
 {<img src="https://travis-ci.org/AndreOrlov/flashcards.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/AndreOrlov/flashcards]
-
 {<img src="https://codeclimate.com/github/AndreOrlov/flashcards/badges/gpa.svg" />}[https://codeclimate.com/github/AndreOrlov/flashcards]
-
 {<img src="https://codeclimate.com/github/AndreOrlov/flashcards/badges/coverage.svg" />}[https://codeclimate.com/github/AndreOrlov/flashcards/coverage]
 
 This README would normally document whatever steps are necessary to get the
