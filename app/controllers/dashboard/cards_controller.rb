@@ -14,7 +14,6 @@ class Dashboard::CardsController < Dashboard::BaseController
   end
 
   def create
-
     @card = current_user.cards.build(card_params)
 
     # test 4xtrot
