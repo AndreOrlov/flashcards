@@ -50,7 +50,7 @@ class Dashboard::CardsController < Dashboard::BaseController
         # format.json { render json: { Error: 'Error parameters query' } }
         format.json { head :bad_request }
       else
-        flickr = Flickr.new
+        flickr = FlickrService.new
         pics = flickr.flickr_pics(flickr_params[:search_tag])
         format.json { render json: { count: pics.size, photos: pics } }
       end

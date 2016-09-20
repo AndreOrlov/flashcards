@@ -1,6 +1,6 @@
 # Flickr class get photo from flickr.com
 
-class Flickr
+class FlickrService
   require 'flickraw'
 
   def initialize
