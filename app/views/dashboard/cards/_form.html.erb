@@ -35,7 +35,7 @@
           <div class="input-group-btn">
             <!-- <label class="btn btn-default" type="submit2"><i class="glyphicon glyphicon-search"></i></label> -->
             <%=
-              label_tag(nil, nil, {class: 'btn btn-default', id: 'search_flickr', 'data-url': "#{flickr_path}",
+              label_tag(nil, nil, {class: 'btn btn-default', id: 'search_flickr', 'data-url': "#{photos_path}",
                                    'data-remote': 'true', 'data-method': 'post'})do
                 content_tag :i, nil, class: 'glyphicon glyphicon-search'
               end

@@ -44,6 +44,19 @@ class Dashboard::CardsController < Dashboard::BaseController
     # respond_with @card
   end
 
+  def photos
+    respond_to do |format|
+      if flickr_params[:search_tag].blank?
+        # format.json { render json: { Error: 'Error parameters query' } }
+        format.json { head :bad_request }
+      else
+        flickr = Flickr.new
+        pics = flickr.flickr_pics(flickr_params[:search_tag])
+        format.json { render json: { count: pics.size, photos: pics } }
+      end
+    end
+  end
+
   private
 
   def set_card
@@ -52,21 +65,25 @@ class Dashboard::CardsController < Dashboard::BaseController
 
   def card_params
     params.require(:card).permit(:original_text, :translated_text, :review_date,
-                                 :image, :image_cache, :image_remote, :remove_image, :block_id)
+                                 :image, :image_cache, :image_remote, :remove_image, :block_id, :search_tag)
+  end
+
+  def flickr_params
+    params.require(:flickr).permit(:search_tag)
   end
 
   def check_remote_pics(card)
     if params.require(:card)[:image].nil?
-      card.remote_image_url = params[:image_remote] unless params[:image_remote] == ''
+      card.remote_image_url = params[:image_remote] unless params[:image_remote].blank?
     end
   end
 
   def which_image
-    if params.require(:card)[:image].nil? && params[:image_remote] == ''
+    if params.require(:card)[:image].nil? && params[:image_remote].blank?
       'Create new card wo image.'
     elsif !params.require(:card)[:image].nil?
       'Create new card with local image.'
-    elsif params[:image_remote] != ''
+    elsif !params[:image_remote].empty?
       'Create new card with remote image.'
     else
       'Create new card with error image.'

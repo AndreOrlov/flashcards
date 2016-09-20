@@ -6,17 +6,15 @@ describe 'New card' do
   let(:user) { create(:user) }
   let!(:block) { create(:block, user: user) }
 
-  before  do
-    visit root_path
-    begin
-      login(user.email, '12345', 'Войти')
-    rescue
-      login(user.email, '12345', 'Log in')
-    end
-    visit new_card_path
-  end
-
   before :each do
+    visit root_path
+    # begin
+    login(user.email, '12345', 'Войти')
+    # rescue
+    # TODO If Selenium driver (firefox) login in en locale. It's bug
+    #   login(user.email, '12345', 'Log in')
+    # end
+    visit new_card_path
     fill_in 'card_original_text', with: 'house'
     fill_in 'card_translated_text', with: 'dom'
     select block.title, from: 'card_block_id'
