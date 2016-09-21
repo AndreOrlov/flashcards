@@ -38,7 +38,7 @@ RSpec.configure do |config|
 
   Capybara.configure do |config|
     config.raise_server_errors = false
-    # To show firefox browser comment string below. 
+    # To show firefox browser comment string below.
     config.javascript_driver = :selenium # :poltergeist
   end
 

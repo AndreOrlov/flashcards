@@ -15,7 +15,7 @@
 /config/flickr.yml
 
 # Ignore vcr_cassete stubs
-/spec/fixtures/vcr_cassettes/*
+# /spec/fixtures/vcr_cassettes/*
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
