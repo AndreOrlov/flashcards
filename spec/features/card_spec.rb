@@ -37,6 +37,7 @@ describe 'New card' do
       find(:css, '#find_flickr').click # set(true)
       fill_in 'search-term', with: 'test'
       Capybara.default_max_wait_time = 60
+      # TODO TravisCI not passed this ajax w PhantomJS driver:(
       find(:css, '#search_flickr').click
       wait_for_ajax
       find(:css, '#remote-pic-5').click
