@@ -33,7 +33,7 @@ describe 'New card' do
   end
 
   it 'with remote image', js: true do
-    VCR.use_cassette('flickr_post') do
+    VCR.use_cassette('flickr_service_post') do
       find(:css, '#find_flickr').click # set(true)
       fill_in 'search-term', with: 'test'
       Capybara.default_max_wait_time = 60

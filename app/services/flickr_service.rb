@@ -2,6 +2,7 @@
 
 class FlickrService
   require 'flickraw'
+  FLICKR_CONFIG = YAML.load_file(Rails.root.join('config', 'flickr.yml')) # [Rails.env]
 
   class << self
     def flickr_pics(tags, qty_per_page = 10)
@@ -24,8 +25,6 @@ class FlickrService
       end
       pics
     end
-
-    private
 
     def set_flickr
       FlickRaw.api_key = FLICKR_CONFIG['api_key']
