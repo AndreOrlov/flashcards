@@ -8,12 +8,12 @@ describe 'New card' do
 
   before :each do
     visit root_path
-    # begin
-    login(user.email, '12345', 'Войти')
-    # rescue
-    # TODO If Selenium driver (firefox) login in en locale. It's bug
-    #   login(user.email, '12345', 'Log in')
-    # end
+    begin
+      login(user.email, '12345', 'Войти')
+    rescue
+    # TODO If Selenium driver (firefox, travisCI w PhantomJS v.1.9) login in en locale. It's bug
+      login(user.email, '12345', 'Log in')
+    end
     visit new_card_path
     fill_in 'card_original_text', with: 'house'
     fill_in 'card_translated_text', with: 'dom'
