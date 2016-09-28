@@ -1,8 +1,10 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
+require 'support/database_cleaner.rb'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+require 'capybara/poltergeist'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -25,14 +27,34 @@ require 'rspec/rails'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+# Allow net connect. Gem VCR stubed external connect
+WebMock.allow_net_connect!
+# Disable net connect
+# WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
+  Capybara.configure do |config|
+    config.raise_server_errors = false
+    # To show firefox browser comment string below.
+    config.javascript_driver = :selenium # :poltergeist
+  end
+
+  config.include WaitForAjax
+
+  VCR.configure do |c|
+    # указываем директорию где у нас будут лежать файлы с цепочками запросов
+    c.cassette_library_dir = File.join(config.fixture_path, 'vcr_cassettes') # указываем директорию где у нас будут лежать файлы с цепочками запросов
+    c.ignore_hosts '127.0.0.1', 'localhost', 'codeclimate.com'
+    c.hook_into :webmock
+  end
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false # true
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

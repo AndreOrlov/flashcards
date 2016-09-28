@@ -1,4 +1,5 @@
 class Dashboard::CardsController < Dashboard::BaseController
+  respond_to :html
   before_action :set_card, only: [:destroy, :edit, :update]
 
   def index
@@ -14,14 +15,22 @@ class Dashboard::CardsController < Dashboard::BaseController
 
   def create
     @card = current_user.cards.build(card_params)
+
+    # test 4xtrot
+    # must save for get id. It uses in name picture filename and store filename in table card.
+    check_remote_pics(@card) if @card.save
+
     if @card.save
-      redirect_to cards_path
+      redirect_to cards_path, notice: which_image
     else
-      respond_with @card
+      respond_with @card, alert: "Doesn't create new card."
     end
   end
 
   def update
+    # test 4xtrot
+    check_remote_pics(@card)
+
     if @card.update(card_params)
       redirect_to cards_path
     else
@@ -31,7 +40,20 @@ class Dashboard::CardsController < Dashboard::BaseController
 
   def destroy
     @card.destroy
-    respond_with @card
+    redirect_to cards_path
+    # respond_with @card
+  end
+
+  def photos
+    respond_to do |format|
+      if flickr_params[:search_tag].blank?
+        # format.json { render json: { Error: 'Error parameters query' } }
+        format.json { head :bad_request }
+      else
+        pics = FlickrService.flickr_pics(flickr_params[:search_tag])
+        format.json { render json: { count: pics.size, photos: pics } }
+      end
+    end
   end
 
   private
@@ -42,6 +64,28 @@ class Dashboard::CardsController < Dashboard::BaseController
 
   def card_params
     params.require(:card).permit(:original_text, :translated_text, :review_date,
-                                 :image, :image_cache, :remove_image, :block_id)
+                                 :image, :image_cache, :image_remote, :remove_image, :block_id, :search_tag)
+  end
+
+  def flickr_params
+    params.require(:flickr).permit(:search_tag)
+  end
+
+  def check_remote_pics(card)
+    if params.require(:card)[:image].nil?
+      card.remote_image_url = params[:image_remote] unless params[:image_remote].blank?
+    end
+  end
+
+  def which_image
+    if params.require(:card)[:image].nil? && params[:image_remote].blank?
+      'Create new card wo image.'
+    elsif !params.require(:card)[:image].nil?
+      'Create new card with local image.'
+    elsif !params[:image_remote].empty?
+      'Create new card with remote image.'
+    else
+      'Create new card with error image.'
+    end
   end
 end

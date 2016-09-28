@@ -37,6 +37,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'pundit'
 gem 'rolify'
+gem 'flickraw'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -48,7 +49,12 @@ group :development, :test do
 end
 
 group :test do
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'webmock'
+  gem 'vcr'
+  gem 'selenium-webdriver'
+  gem 'poltergeist'
+  gem 'database_cleaner'
 end
 
 group :development do

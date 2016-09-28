@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     post 'logout' => 'user_sessions#destroy', :as => :logout
 
     resources :cards
+    post 'photos' => 'cards#photos', as: :photos
 
     resources :blocks do
       member do
@@ -33,5 +34,11 @@ Rails.application.routes.draw do
 
     get 'profile/:id/edit' => 'profile#edit', as: :edit_profile
     put 'profile/:id' => 'profile#update', as: :profile
+
   end
+
+  # TODO delete after tests
+  # scope module: 'services' do
+  #   post 'flickr' => 'flickr#photos', as: :flickr
+  # end
 end

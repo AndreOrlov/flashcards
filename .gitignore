@@ -11,6 +11,12 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore flickr.com keys
+/config/flickr.yml
+
+# Ignore vcr_cassete stubs
+# /spec/fixtures/vcr_cassettes/*
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
